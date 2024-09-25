@@ -57,8 +57,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future<void> _launchURL() async {
-    final Uri url = Uri.parse('https://portfolio-jorel-mathivon.netlify.app/');
+  Future<void> _launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
@@ -105,7 +105,8 @@ class _HomePageState extends State<HomePage> {
             right: 16,
             bottom: 16,
             child: ElevatedButton(
-              onPressed: _launchURL,
+              onPressed: () =>
+                  _launchURL('https://portfolio-jorel-mathivon.netlify.app/'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
@@ -113,6 +114,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: const Text("Qui est-ce?"),
+            ),
+          ),
+          Positioned(
+            left: 16,
+            bottom: 16,
+            child: ElevatedButton(
+              onPressed: () => _launchURL(
+                  'https://www.tiktok.com/@capitainebarbarossa/video/7292693821022932256?is_from_webapp=1&sender_device=pc&web_id=7403043065056118304'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text("C'est bon de rire"),
             ),
           ),
         ],
