@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tp/services/firebase.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -42,13 +42,13 @@ class _HomePageState extends State<HomePage> {
                 FirebaseService().createCode(_controller.text);
                 Navigator.of(context).pop('OK');
               },
-              child: const Text('Ajouter'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
+              child: const Text('Ajouter'),
             ),
           ],
         );
@@ -67,11 +67,26 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: Text(
-          'Appuyez sur le bouton + pour ajouter un nouveau code',
-          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-          textAlign: TextAlign.center,
-        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(
+            width: 200, // Ajustez cette valeur selon vos besoins
+            height: 200, // Ajustez cette valeur selon vos besoins
+            child: Image.network(
+              'https://media1.tenor.com/m/dLlQ0y-KcPYAAAAd/dog-smile-dog.gif',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 20), // Espace entre l'image et le texte
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Ce GIF mérite bien un 20, n\'est-ce pas ?\n'
+              'Appuyez sur le bouton + pour ajouter un nouveau code',
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ]),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: openDialogCode,
