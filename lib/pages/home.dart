@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
 
   void openDialogCode() async {
-    final code = await showDialog<String>(
+    await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
