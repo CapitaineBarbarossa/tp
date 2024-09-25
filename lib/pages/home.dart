@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tp/services/firebase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -56,6 +57,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _launchURL() async {
+    final Uri url = Uri.parse('https://portfolio-jorel-mathivon.netlify.app/');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,27 +74,48 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SizedBox(
-            width: 200, // Ajustez cette valeur selon vos besoins
-            height: 200, // Ajustez cette valeur selon vos besoins
-            child: Image.network(
-              'https://media1.tenor.com/m/dLlQ0y-KcPYAAAAd/dog-smile-dog.gif',
-              fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Image.network(
+                    'https://media1.tenor.com/m/dLlQ0y-KcPYAAAAd/dog-smile-dog.gif',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Ce GIF mérite bien un 20, n\'est-ce pas ?\n'
+                    'Appuyez sur le bouton + pour ajouter un nouveau code',
+                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 20), // Espace entre l'image et le texte
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              'Ce GIF mérite bien un 20, n\'est-ce pas ?\n'
-              'Appuyez sur le bouton + pour ajouter un nouveau code',
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              textAlign: TextAlign.center,
+          Positioned(
+            right: 16,
+            bottom: 16,
+            child: ElevatedButton(
+              onPressed: _launchURL,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text("Qui est-ce?"),
             ),
           ),
-        ]),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: openDialogCode,
